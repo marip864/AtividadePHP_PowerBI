@@ -10,7 +10,7 @@ try {
 
     $fp = fopen('arquivoAtividades.csv', 'w');
     
-    $colunasTitulo = array("idAtividade", "nomeAtividade", "dataInicial", "dataFinal", "diasPrevistos", "diasExecutados", "orcamento", "valorGasto", "status", "atrasado", "idProjeto", "idResponsavel");
+    $colunasTitulo = array("idAtividade", "nomeAtividade", "dataInicial", "dataFinal", "diasPrevistos", "orcamento", "valorGasto", "status", "idProjeto", "idResponsavel");
 
     fputcsv($fp, $colunasTitulo);
 
@@ -20,16 +20,14 @@ try {
         $dataInicial = $row["dataInicial"];
         $dataFinal = $row["dataFinal"];
         $diasPrevistos = $row["diasPrevistos"];
-        $diasExecutados = $row["diasExecutados"];
         $orcamento = $row["orcamento"];
         $valorGasto = $row["valorGasto"];
         $status = $row["status"];
-        $atrasado = $row["atrasado"];
         $idProjeto = $row["idProjeto"];
         $idResponsavel = $row["idResponsavel"];
 
         $lista = array (
-            array($idAtividade, $nomeAtividade, $dataInicial, $dataFinal, $diasPrevistos, $diasExecutados, $orcamento, $valorGasto, $status, $atrasado, $idProjeto, $idResponsavel)
+            array($idAtividade, $nomeAtividade, $dataInicial, $dataFinal, $diasPrevistos, $orcamento, $valorGasto, $status, $idProjeto, $idResponsavel)
         );
         
         foreach ($lista as $linha) {

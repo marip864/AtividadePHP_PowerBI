@@ -1,6 +1,6 @@
-idAtividade,nomeAtividade,dataInicial,dataFinal,diasPrevistos,diasExecutados,orcamento,valorGasto,status,atrasado,idProjeto,idResponsavel
-1,"Prototipacao Web","segunda-feira: 20 de marco de 2023","segunda-feira: 10 de abril de 2023",30,21,1000.00,800.00,Finalizada,,1,1
-3,"Codificacao Web","quinta-feira: 09 de maio de 2024","sabado: 08 de junho de 2024",180,30,5000.00,7000.00,"Em andamento",,1,2
-4,"Criacao API","segunda-feira: 02 de setembro de 2024","terca-feira: 10 de setembro de 2024",15,8,200.00,200.00,Finalizada,,1,3
-5,"Codificacao Mobile","terca-feira: 13 de agosto","quarta-feira: 06 de novembro de 2024",85,0,5000.00,1000.00,"Nao iniciada",,1,4
-6,"Prototipacao Mobile","terca-feira: 30 de julho de 2024","domingo: 04 de agosto de 2024",15,5,600.00,400.00,"Em andamento",,1,5
+idAtividade,nomeAtividade,dataInicial,dataFinal,diasPrevistos,diasExecutados,orcamento,valorGasto,status,idProjeto,idResponsavel
+1,"Prototipacao Web","segunda-feira: 20 de marco de 2023","segunda-feira: 10 de abril de 2023",30,21,1000.00,800.00,Finalizada,1,1
+3,"Codificacao Web","quinta-feira: 09 de maio de 2024","sabado: 08 de junho de 2024",180,30,5000.00,7000.00,"Em andamento",1,2
+4,"Criacao API","segunda-feira: 02 de setembro de 2024","terca-feira: 10 de setembro de 2024",15,8,200.00,200.00,Finalizada,1,3
+5,"Codificacao Mobile","terca-feira: 13 de agosto","quarta-feira: 06 de novembro de 2024",85,0,5000.00,1000.00,"Nao iniciada",1,4
+6,"Prototipacao Mobile","terca-feira: 30 de julho de 2024","domingo: 04 de agosto de 2024",15,5,600.00,400.00,"Em andamento",1,5
