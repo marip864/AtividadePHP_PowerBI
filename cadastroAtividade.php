@@ -2,8 +2,8 @@
     <head>
         <style type="text/css"></style>
     <body>
-        <a href="home.html">Home</a> | <a href="consulta.php">Consulta</a>
-        <h2>Cadastro de Produtos</h2>
+        <a href="home.html">Home</a> | <a href="consultaAtividade.php">Consulta</a>
+        <h2>Cadastro de Atividades - Projetos TCC</h2>
         <form method="post" id="checkbox-container">
             Nome da Atividade: <input type="text" name="nome">
             <br><br>
@@ -15,7 +15,7 @@
             <br><br>
             Valor gasto: <input type="text" name="valorGasto">
             <br><br>
-            Status: <select value="status"><option></option><option>Não iniciado</option><option>Em andamento</option><option>Finalizado</option></select>
+            Status: <select name="status"><option></option><option value="naoIniciado">Não iniciado</option><option value="emAndamento">Em andamento</option><option value="finalizado">Finalizado</option></select>
             <br><br>
             Projeto vinculado: 
             <?php
@@ -62,12 +62,28 @@
         $projeto = $_POST['projeto'];
         $responsavel = $_POST['responsavel'];
 
+        print($nome);
+        print('\n');
+        print($dataInicial);
+        print('\n');
+        print($dataFinal);
+        print('\n');
+        print($orcamento);
+        print('\n');
+        print($valorGasto);
+        print('\n');
+        print($status);
+        print('\n');
+        print($projeto);
+        print('\n');
+        print($responsavel);
+
         if((trim($nome)!="")&&(trim($dataInicial)!="")&&(trim($dataFinal)!="")&&(trim($orcamento)!="")&&(trim($valorGasto)!="")&&(trim($status)!=null)&&(trim($projeto)!="")&&(trim($responsavel)!=""))
         {
             include("conexaoBD.php");
             try
             {
-                $stmt = $pdo->prepare('select * from AtividadesProjeto where nome = :nome and idProjeto = :nomeProjeto');
+                $stmt = $pdo->prepare('select * from AtividadesProjeto where nome = :nome and nomeProjeto = :nomeProjeto');
                 $stmt->bindParam(':nome', $nome);
                 $stmt->bindParam(':nomeProjeto', $projeto);
                 $stmt->execute();
@@ -75,7 +91,7 @@
                 $rows = $stmt->rowCount();
                 if($rows<=0)
                 {
-                    $stmt = $pdo->prepare('insert into AtividadesProjeto (nomeAtividade, dataInicial, dataFinal, orcamento, valorGasto, status, idProjeto, idResponsavel) values (:nomeAtividade, :dataInicial, :dataFinal, :orcamento, :valorGasto, :status, :idProjeto, :idResponsavel)');
+                    $stmt = $pdo->prepare('insert into AtividadesProjeto (nomeAtividade, dataInicial, dataFinal, orcamento, valorGasto, status, nomeProjeto, idResponsavel) values (:nomeAtividade, :dataInicial, :dataFinal, :orcamento, :valorGasto, :status, :idProjeto, :idResponsavel)');
                     $stmt->bindParam(':nomeAtividade', $nomeAtividade);
                     $stmt->bindParam(':dataInicial', $dataInicial);
                     $stmt->bindParam(':dataFinal', $dataFinal);
