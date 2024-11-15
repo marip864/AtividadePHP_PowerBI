@@ -17,38 +17,6 @@
                 box-sizing: border-box;
             }
 
-            nav {
-                width: 100%;
-                background-color: #333;
-                padding: 20px 20px;
-                box-sizing: border-box;
-            }
-
-            nav ul {
-                display: flex;
-                justify-content: center; 
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            nav ul li {
-                margin: 0 15px;
-            }
-
-            nav ul li a {
-                color: white;
-                text-decoration: none;
-                font-size: 16px;
-                padding: 10px;
-                transition: background-color 0.3s ease;
-            }
-
-            nav ul li a:hover {
-                background-color: #575757;
-                border-radius: 4px;
-            }
-
             .container {
                 width: 100%;
                 max-width: 1000px;
@@ -64,6 +32,11 @@
                 text-align: center;
                 color: #333;
                 margin-bottom: 20px;
+            }
+
+            .table-wrapper {
+                width: 100%;
+                overflow-x: auto; 
             }
 
             table {
@@ -110,14 +83,9 @@
             }
 
             @media (max-width: 768px) {
-                
-                nav ul li {
-                    margin: 10px 0;
-                }
 
-                nav ul {
-                    flex-direction: column;
-                    align-items: center;
+                th, td {
+                    word-wrap: break-word;
                 }
 
                 table {
@@ -135,13 +103,9 @@
         </style>
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="cadastroAtividade.php">Cadastro</a></li>
-                <li><a href="gerarCSV.php">Gerar CSV</a></li>
-            </ul>
-        </nav>
+        <?php
+            include('navbar.html');
+        ?>
 
         <div class="container">
             <h2>Consulta de Atividades</h2>
@@ -156,7 +120,7 @@
                     if ($rows <= 0) {
                         echo "<p class='message erroPreenchimento'>Ainda não existem atividades cadastradas!</p>";
                     } else {
-                        echo "<table><tr><th>Código</th><th>Atividade</th><th>Data Inicial</th><th>Data Final</th><th>Orçamento</th><th>Valor Gasto</th><th>Status</th><th>Projeto</th></tr>";
+                        echo "<div class='table-wrapper'><table><tr><th>Código</th><th>Atividade</th><th>Data Inicial</th><th>Data Final</th><th>Orçamento</th><th>Valor Gasto</th><th>Status</th><th>Projeto</th></tr>";
                         while ($row = $stmt->fetch()) {
                             echo "<tr>
                                     <td>".$row['idAtividade']."</td>
@@ -169,7 +133,7 @@
                                     <td>".$row['nomeProjeto']."</td>
                                   </tr>";
                         }
-                        echo "</table>";
+                        echo "</table></div>";
 
                         echo "<a href='gerarCSV.php' class='a'>Gerar CSV</a>";
                     }

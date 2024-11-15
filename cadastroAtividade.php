@@ -14,37 +14,6 @@
                 flex-direction: column; 
             }
 
-            nav {
-                width: 100%;
-                background-color: #333;
-                padding: 20px 20px;
-                box-sizing: border-box;
-            }
-
-            nav ul {
-                display: flex;
-                justify-content: center; 
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            nav ul li {
-                margin: 0 15px;
-            }
-
-            nav ul li a {
-                color: white;
-                text-decoration: none;
-                font-size: 16px;
-                padding: 10px;
-                transition: background-color 0.3s ease;
-            }
-
-            nav ul li a:hover {
-                background-color: #575757;
-                border-radius: 4px;
-            }
 
             .container {
                 width: 100%;
@@ -108,14 +77,6 @@
             }
 
             @media (max-width: 600px) {
-                nav ul {
-                    flex-direction: column; 
-                    align-items: center; 
-                }
-
-                nav ul li {
-                    margin: 10px 0;
-                }
 
                 .container {
                     padding: 15px;
@@ -132,14 +93,9 @@
         </style>
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="consultaAtividade.php">Consulta</a></li>
-                <li><a href="gerarCSV.php">Gerar CSV</a></li>
-            </ul>
-        </nav>
-
+        <?php
+            include('navbar.html');
+        ?>
         <div class="container">
             <h2>Cadastro de Atividades - Projetos TCC</h2>
             <form method="post" id="checkbox-container">
