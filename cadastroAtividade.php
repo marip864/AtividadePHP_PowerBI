@@ -1,122 +1,236 @@
-<html>
+<html lang="pt-br">
     <head>
-        <style type="text/css"></style>
-    <body>
-        <a href="home.html">Home</a> | <a href="consultaAtividade.php">Consulta</a>
-        <h2>Cadastro de Atividades - Projetos TCC</h2>
-        <form method="post" id="checkbox-container">
-            Nome da Atividade: <input type="text" name="nome">
-            <br><br>
-            Data Inicial: <input type="date" name="dataInicial">
-            <br><br>
-            Data Final: <input type="date" name="dataFinal">
-            <br><br>
-            Orçamento: <input type="text" name="orcamento">
-            <br><br>
-            Valor gasto: <input type="text" name="valorGasto">
-            <br><br>
-            Status: <select name="status"><option></option><option value="naoIniciado">Não iniciado</option><option value="emAndamento">Em andamento</option><option value="finalizado">Finalizado</option></select>
-            <br><br>
-            Projeto vinculado: 
-            <?php
-            $_POST['projeto']="";
-            try {
-                include('conexaoBD.php');
-                $stmt = $pdo->prepare("select nomeProjeto from Projeto");
-                $stmt->execute(); 
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastro de Atividades - Projetos TCC</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                display: flex;
+                justify-content: center;
+                align-items: center; 
+                margin: 0;
+                flex-direction: column; 
+            }
 
-                echo '<select name="projeto" id="projeto">';
-                
-                echo '<option value=""></option>';
+            nav {
+                width: 100%;
+                background-color: #333;
+                padding: 20px 20px;
+                box-sizing: border-box;
+            }
 
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $nome = $row['nomeProjeto'];
-                    
-                    echo "<option value=\"$nome\">$nome</option>";
+            nav ul {
+                display: flex;
+                justify-content: center; 
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            nav ul li {
+                margin: 0 15px;
+            }
+
+            nav ul li a {
+                color: white;
+                text-decoration: none;
+                font-size: 16px;
+                padding: 10px;
+                transition: background-color 0.3s ease;
+            }
+
+            nav ul li a:hover {
+                background-color: #575757;
+                border-radius: 4px;
+            }
+
+            .container {
+                width: 100%;
+                max-width: 1000px;
+                padding: 20px;
+                margin-top: 20px;
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                box-sizing: border-box;
+            }
+
+            h2 {
+                text-align: center;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            input[type="text"], input[type="date"], select {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"] {
+                background-color: red;
+                color: white;
+                border: none;
+                padding: 15px;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 4px;
+                transition: background-color 0.3s ease;
+            }
+
+            .message {
+                text-align: center;
+                font-weight: bold;
+                margin-top: 20px;
+            }
+
+            .erroPreenchimento {
+                color: red;
+            }
+
+            .sucesso {
+                color: green;
+            }
+
+            .erroExiste {
+                color: orange;
+            }
+
+            @media (max-width: 600px) {
+                nav ul {
+                    flex-direction: column; 
+                    align-items: center; 
                 }
 
-                echo '</select>';
-            } 
-            catch (PDOException $e) {
-                echo 'Erro na consulta: ' . $e->getMessage();
+                nav ul li {
+                    margin: 10px 0;
+                }
+
+                .container {
+                    padding: 15px;
+                }
+
+                h2 {
+                    font-size: 20px;
+                }
+
+                input[type="submit"] {
+                    padding: 12px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="consultaAtividade.php">Consulta</a></li>
+                <li><a href="gerarCSV.php">Gerar CSV</a></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <h2>Cadastro de Atividades - Projetos TCC</h2>
+            <form method="post" id="checkbox-container">
+                Nome da Atividade: <input type="text" name="nome" required>
+                <br>
+                Data Inicial: <input type="date" name="dataInicial" required>
+                <br>
+                Data Final: <input type="date" name="dataFinal" required>
+                <br>
+                Orçamento: <input type="text" name="orcamento" required>
+                <br>
+                Valor gasto: <input type="text" name="valorGasto" required>
+                <br>
+                Status: 
+                <select name="status" required>
+                    <option value=""></option>
+                    <option value="Não iniciada">Não iniciado</option>
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Finalizada">Finalizado</option>
+                </select>
+                <br>
+                Projeto vinculado: 
+                <?php
+                try {
+                    include('conexaoBD.php');
+                    $stmt = $pdo->prepare("SELECT nomeProjeto FROM Projeto");
+                    $stmt->execute(); 
+
+                    echo '<select name="projeto" id="projeto" required>';
+                    echo '<option value=""></option>';
+
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $nome = $row['nomeProjeto'];
+                        echo "<option value=\"$nome\">$nome</option>";
+                    }
+
+                    echo '</select>';
+                } 
+                catch (PDOException $e) {
+                    echo 'Erro na consulta: ' . $e->getMessage();
+                }
+                ?>
+                <br>
+                Responsável: <input type="text" name="responsavel" required>
+                <br>
+                <input type="submit" value="Cadastrar">
+            </form>
+
+            <?php
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+                $nome = $_POST['nome'];
+                $dataInicial = $_POST['dataInicial'];
+                $dataFinal = $_POST['dataFinal'];
+                $orcamento = $_POST['orcamento'];
+                $valorGasto = $_POST['valorGasto'];
+                $status = $_POST['status'];
+                $projeto = $_POST['projeto'];
+                $responsavel = $_POST['responsavel'];
+
+                if(trim($nome) != "" && trim($dataInicial) != "" && trim($dataFinal) != "" && trim($orcamento) != "" && trim($valorGasto) != "" && trim($status) != "" && trim($projeto) != "" && trim($responsavel) != "") {
+                    include("conexaoBD.php");
+                    try {
+                        $stmt = $pdo->prepare('SELECT * FROM AtividadesProjeto WHERE nomeAtividade = :nome AND nomeProjeto = :nomeProjeto');
+                        $stmt->bindParam(':nome', $nome);
+                        $stmt->bindParam(':nomeProjeto', $projeto);
+                        $stmt->execute();
+
+                        $rows = $stmt->rowCount();
+                        if($rows <= 0) {
+                            $stmt = $pdo->prepare('INSERT INTO AtividadesProjeto (nomeAtividade, dataInicial, dataFinal, orcamento, valorGasto, status, nomeProjeto, nomeResponsavel) VALUES (:nomeAtividade, :dataInicial, :dataFinal, :orcamento, :valorGasto, :status, :idProjeto, :nomeResponsavel)');
+                            $stmt->bindParam(':nomeAtividade', $nome);
+                            $stmt->bindParam(':dataInicial', $dataInicial);
+                            $stmt->bindParam(':dataFinal', $dataFinal);
+                            $stmt->bindParam(':orcamento', $orcamento);
+                            $stmt->bindParam(':valorGasto', $valorGasto);
+                            $stmt->bindParam(':status', $status);
+                            $stmt->bindParam(':idProjeto', $projeto);
+                            $stmt->bindParam(':nomeResponsavel', $responsavel);
+                            $stmt->execute();
+                            echo "<div class='message sucesso'>Atividade cadastrada com sucesso!</div>";
+                        } else {
+                            echo "<div class='message erroExiste'>A atividade já foi cadastrada!</div>";
+                        }
+                    } catch(PDOException $e) {
+                        echo $e->getMessage();
+                    }
+                } else {
+                    echo "<div class='message erroPreenchimento'>Preencha todos os campos!</div>";
+                }
             }
             ?>
-            <br><br>
-            Responsável: <input type="text" name="responsavel">
-            <br><br>
-            <input type="submit" value="Cadastrar">
-        </form>
+        </div>
     </body>
 </html>
-
-<?php
-
-    if($_SERVER['REQUEST_METHOD']=="POST")
-    {
-        $nome = $_POST['nome'];
-        $dataInicial = $_POST['dataInicial'];
-        $dataFinal = $_POST['dataFinal'];
-        $orcamento  =$_POST['orcamento'];
-        $valorGasto = $_POST['valorGasto'];
-        $status = $_POST['status'];
-        $projeto = $_POST['projeto'];
-        $responsavel = $_POST['responsavel'];
-
-        print($nome);
-        print('\n');
-        print($dataInicial);
-        print('\n');
-        print($dataFinal);
-        print('\n');
-        print($orcamento);
-        print('\n');
-        print($valorGasto);
-        print('\n');
-        print($status);
-        print('\n');
-        print($projeto);
-        print('\n');
-        print($responsavel);
-
-        if((trim($nome)!="")&&(trim($dataInicial)!="")&&(trim($dataFinal)!="")&&(trim($orcamento)!="")&&(trim($valorGasto)!="")&&(trim($status)!=null)&&(trim($projeto)!="")&&(trim($responsavel)!=""))
-        {
-            include("conexaoBD.php");
-            try
-            {
-                $stmt = $pdo->prepare('select * from AtividadesProjeto where nome = :nome and nomeProjeto = :nomeProjeto');
-                $stmt->bindParam(':nome', $nome);
-                $stmt->bindParam(':nomeProjeto', $projeto);
-                $stmt->execute();
-
-                $rows = $stmt->rowCount();
-                if($rows<=0)
-                {
-                    $stmt = $pdo->prepare('insert into AtividadesProjeto (nomeAtividade, dataInicial, dataFinal, orcamento, valorGasto, status, nomeProjeto, idResponsavel) values (:nomeAtividade, :dataInicial, :dataFinal, :orcamento, :valorGasto, :status, :idProjeto, :idResponsavel)');
-                    $stmt->bindParam(':nomeAtividade', $nomeAtividade);
-                    $stmt->bindParam(':dataInicial', $dataInicial);
-                    $stmt->bindParam(':dataFinal', $dataFinal);
-                    $stmt->bindParam(':orcamento', $orcamento);
-                    $stmt->bindParam(':valorGasto', $valorGasto);
-                    $stmt->bindParam(':status', $status);
-                    $stmt->bindParam(':idProjeto', $idProjeto);
-                    $stmt->execute();
-                    echo "<h4 id='sucesso'>Atividade cadastrada com sucesso!</h4>";
-                }
-                else
-                {
-                    echo "<h4 id='erroExiste'>A atividade já foi cadastrada!</h4>";
-                }
-            }   
-            catch(PDOException $e)
-            {
-                echo $e->getMessage();
-            }
-        }
-        else
-        {
-            echo "<h4 id='erroPreenchimento'>Preencha todos os campos!</h4>";
-        }
-    }
-    $pdo = null;
-
-?>

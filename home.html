@@ -1,10 +1,67 @@
-<html>
+<html lang="pt-br">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <style>
 
+            body {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f7fb; /* Cor de fundo suave */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+            button {
+                background-color: red;
+                color: white;
+                font-size: 1.2rem;
+                padding: 8px 30px;
+                border: none;
+                border-radius: 8px;
+                margin: 10px;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.3s;
+            }
+
+            button:hover {
+                background-color: #b30012;
+                transform: scale(1.05); 
+            }
+
+            button:active {
+                background-color: #b30012;
+            }
+
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 2rem;
+                }
+
+                button {
+                    font-size: 1rem;
+                    padding: 12px 25px;
+                }
+            }
+        </style>
     </head>
     <body>
         <h1>Home</h1>
         <button onclick="window.open('cadastroAtividade.php')">Cadastro</button>
         <button onclick="window.open('consultaAtividade.php')">Consulta</button>
+        <button onclick="window.open('gerarCSV.php')">Gerar CSV</button>
     </body>
 </html>
