@@ -34,7 +34,7 @@ try {
         }        
     }
 
-    $msg = "Arquivo gerado: arquivoAtividades.csv";
+    $msg = "Arquivo gerado: <a href='arquivoAtividades.csv' download='arquivoAtividades.csv'>arquivoAtividades.csv</a>";
     fclose($fp);
 
 } catch (PDOException $e) {
@@ -54,13 +54,12 @@ try {
                 padding: 0;
                 box-sizing: border-box;
                 font-family: 'Arial', sans-serif;
-                background-color: #f4f7fb; /* Cor de fundo suave */
+                background-color: #f4f7fb; 
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
                 flex-direction: column;
-                text-align: center;
             }
 
             .container {
@@ -105,6 +104,18 @@ try {
                     padding: 12px 25px;
                 }
             }
+
+            a
+            {
+                color: red;
+                text-decoration: none;
+            }
+
+            a:hover
+            {
+                color: #b30012;
+            }
+
     </style>
 </head>
 

@@ -198,7 +198,9 @@
                 $status = $_POST['status'];
                 $projeto = $_POST['projeto'];
                 $responsavel = $_POST['responsavel'];
-
+                setlocale(LC_TIME, 'pt_BR.utf8', 'pt_BR', 'portuguese');
+                $dataInicialFormatada = strftime("%A, %d de %B de %Y", strtotime($dataInicial));
+                $dataFinalFormatada = strftime("%A, %d de %B de %Y", strtotime($dataFinal));
                 if(trim($nome) != "" && trim($dataInicial) != "" && trim($dataFinal) != "" && trim($orcamento) != "" && trim($valorGasto) != "" && trim($status) != "" && trim($projeto) != "" && trim($responsavel) != "") {
                     include("conexaoBD.php");
                     try {
@@ -211,8 +213,8 @@
                         if($rows <= 0) {
                             $stmt = $pdo->prepare('INSERT INTO AtividadesProjeto (nomeAtividade, dataInicial, dataFinal, orcamento, valorGasto, status, nomeProjeto, nomeResponsavel) VALUES (:nomeAtividade, :dataInicial, :dataFinal, :orcamento, :valorGasto, :status, :idProjeto, :nomeResponsavel)');
                             $stmt->bindParam(':nomeAtividade', $nome);
-                            $stmt->bindParam(':dataInicial', $dataInicial);
-                            $stmt->bindParam(':dataFinal', $dataFinal);
+                            $stmt->bindParam(':dataInicial', $dataInicialFormatada);
+                            $stmt->bindParam(':dataFinal', $dataFinalFormatada);
                             $stmt->bindParam(':orcamento', $orcamento);
                             $stmt->bindParam(':valorGasto', $valorGasto);
                             $stmt->bindParam(':status', $status);
