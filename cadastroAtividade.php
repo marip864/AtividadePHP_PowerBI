@@ -3,6 +3,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cadastro de Atividades - Projetos TCC</title>
+        
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -96,6 +97,7 @@
         <?php
             include('navbar.html');
         ?>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <div class="container">
             <h2>Cadastro de Atividades - Projetos TCC</h2>
             <form method="post" id="checkbox-container">
@@ -177,15 +179,25 @@
                             $stmt->bindParam(':idProjeto', $projeto);
                             $stmt->bindParam(':nomeResponsavel', $responsavel);
                             $stmt->execute();
-                            echo "<div class='message sucesso'>Atividade cadastrada com sucesso!</div>";
-                        } else {
-                            echo "<div class='message erroExiste'>A atividade já foi cadastrada!</div>";
+                            $stmt = $pdo->prepare('SELECT * FROM ResponsavelAtividade WHERE nomeResponsavel = :responsavel');
+                            $stmt->bindParam(':responsavel', $responsavel);
+                            $stmt->execute();
+
+                            $rows = $stmt->rowCount();
+                            if($rows <= 0) {
+                                $stmt = $pdo->prepare('INSERT INTO ResponsavelAtividade (nomeResponsavel) VALUES (:nomeResponsavel)');
+                                $stmt->bindParam(':nomeResponsavel', $responsavel);
+                                $stmt->execute();
+                            }
+                            echo "<script>swal('Sucesso!', 'Atividade cadastrada com sucesso!', 'success');</script>";
+                            } else {
+                                echo "<script>swal('Atenção!', 'A atividade já foi cadastrada!', 'warning');</script>";
                         }
                     } catch(PDOException $e) {
                         echo $e->getMessage();
                     }
                 } else {
-                    echo "<div class='message erroPreenchimento'>Preencha todos os campos!</div>";
+                    echo "<script>swal('Erro!', 'Preencha todos os campos obrigatórios!', 'error');</script>";
                 }
             }
             ?>

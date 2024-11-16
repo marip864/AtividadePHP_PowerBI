@@ -82,7 +82,7 @@
                 transition: background-color 0.3s ease;
             }
 
-            @media (max-width: 768px) {
+            @media (max-width: 600px) {
 
                 th, td {
                     word-wrap: break-word;
@@ -120,10 +120,9 @@
                     if ($rows <= 0) {
                         echo "<p class='message erroPreenchimento'>Ainda não existem atividades cadastradas!</p>";
                     } else {
-                        echo "<div class='table-wrapper'><table><tr><th>Código</th><th>Atividade</th><th>Data Inicial</th><th>Data Final</th><th>Orçamento</th><th>Valor Gasto</th><th>Status</th><th>Projeto</th></tr>";
+                        echo "<div class='table-wrapper'><table><tr><th>Atividade</th><th>Data Inicial</th><th>Data Final</th><th>Orçamento</th><th>Valor Gasto</th><th>Status</th><th>Projeto</th><th>Respnsável</th></tr>";
                         while ($row = $stmt->fetch()) {
                             echo "<tr>
-                                    <td>".$row['idAtividade']."</td>
                                     <td>".$row['nomeAtividade']."</td>
                                     <td>".$row['dataInicial']."</td>
                                     <td>".$row['dataFinal']."</td>
@@ -131,6 +130,7 @@
                                     <td>R$ ".$row['valorGasto']."</td>
                                     <td>".$row['status']."</td>
                                     <td>".$row['nomeProjeto']."</td>
+                                    <td>".$row['nomeResponsavel']."</td>
                                   </tr>";
                         }
                         echo "</table></div>";

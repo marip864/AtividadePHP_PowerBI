@@ -9,3 +9,6 @@ idAtividade,nomeAtividade,dataInicial,dataFinal,orcamento,valorGasto,status,nome
 9,Publicação,"quinta-feira, 07 de novembro de 2024","quinta-feira, 14 de novembro de 2024",200.00,200.00,Finalizada,BioSearch,Arthur
 10,Documentação,"quarta-feira, 06 de novembro de 2024","quarta-feira, 13 de novembro de 2024",200.00,200.00,Finalizada,BiblioCamp,Enrique
 11,Documentação,"quarta-feira, 06 de novembro de 2024","quarta-feira, 13 de novembro de 2024",200.00,200.00,Finalizada,SySale,Daniela
+12,Documentação,"quarta-feira, 06 de novembro de 2024","quarta-feira, 13 de novembro de 2024",200.00,100.00,Finalizada,"Estágio Connect",Lorena
+13,Documentação,"quarta-feira, 06 de novembro de 2024","quarta-feira, 13 de novembro de 2024",200.00,100.00,Finalizada,EcoMoment,Lorena
+15,"Codificação Web","quarta-feira, 06 de novembro de 2024","quarta-feira, 27 de novembro de 2024",700.00,500.00,"Em andamento",BiblioCamp,Enrique
