@@ -55,7 +55,7 @@
             }
 
             th {
-                background-color: #333;
+                background-color: #2e66b1;
                 color: white;
             }
 
@@ -75,7 +75,7 @@
                 display: inline-block;
                 margin-top: 20px;
                 padding: 10px 15px;
-                background-color: red;
+                background-color: #2e66b1;
                 color: white;
                 text-decoration: none;
                 border-radius: 4px;

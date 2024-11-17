@@ -1,18 +1,16 @@
 <?php
 
-/* Geração de arquivo CSV */
-
 include("conexaoBD.php");
 
 try {
     $stmt = $pdo->prepare("select * from AtividadesProjeto");
     $stmt->execute();
 
-    $fp = fopen('arquivoAtividades.csv', 'w');
+    $fp1 = fopen('arquivoAtividades.csv', 'w');
     
-    $colunasTitulo = array("idAtividade", "nomeAtividade", "dataInicial", "dataFinal", "orcamento", "valorGasto", "status", "nomeProjeto", "nomeResponsavel");
+    $colunasTitulo1 = array("idAtividade", "nomeAtividade", "dataInicial", "dataFinal", "orcamento", "valorGasto", "status", "nomeProjeto", "nomeResponsavel");
 
-    fputcsv($fp, $colunasTitulo);
+    fputcsv($fp1, $colunasTitulo1);
 
     while ($row = $stmt->fetch()) {
         $idAtividade = $row["idAtividade"];
@@ -25,17 +23,62 @@ try {
         $nomeProjeto = $row["nomeProjeto"];
         $nomeResponsavel = $row["nomeResponsavel"];
 
-        $lista = array (
+        $lista1 = array (
             array($idAtividade, $nomeAtividade, $dataInicial, $dataFinal, $orcamento, $valorGasto, $status, $nomeProjeto, $nomeResponsavel)
         );
         
-        foreach ($lista as $linha) {
-            fputcsv($fp, $linha);
-        }        
+        foreach ($lista1 as $linha) {
+            fputcsv($fp1, $linha);
+        }
+
     }
 
-    $msg = "Arquivo gerado: <a href='arquivoAtividades.csv' download='arquivoAtividades.csv'>arquivoAtividades.csv</a>";
-    fclose($fp);
+        $stmt = $pdo->prepare("select * from Projeto");
+        $stmt->execute();
+
+        $fp2 = fopen('arquivoProjetos.csv', 'w');
+        
+        $colunasTitulo2 = array("nomeProjeto");
+
+        fputcsv($fp2, $colunasTitulo2);
+
+        while ($row = $stmt->fetch()) {
+            $nomeProjeto = $row["nomeProjeto"];
+
+            $lista2 = array (
+                array($nomeProjeto)
+            );
+            
+            foreach ($lista2 as $linha) {
+                fputcsv($fp2, $linha);
+            }
+        }
+
+        $stmt = $pdo->prepare("select * from ResponsavelAtividade");
+        $stmt->execute();
+
+        $fp3 = fopen('arquivoResponsaveis.csv', 'w');
+        
+        $colunasTitulo3 = array("idResponsavelAtividade", "nomeResponsavel");
+
+        fputcsv($fp3, $colunasTitulo3);
+
+        while ($row = $stmt->fetch()) {
+            $idResponsavelAtividade = $row["idResponsavelAtividade"];
+            $nomeResponsavel = $row["nomeResponsavel"];
+
+            $lista3 = array (
+                array($idResponsavelAtividade, $nomeResponsavel)
+            );
+            
+            foreach ($lista3 as $linha) {
+                fputcsv($fp3, $linha);
+            }
+        }
+
+    $msg = "Arquivos gerados: <a href='arquivoAtividades.csv' download='arquivoAtividades.csv'>arquivoAtividades.csv</a><a href='arquivoProjetos.csv' download='arquivoProjetos.csv'>arquivoProjetos.csv</a><a href='arquivoResponsaveis.csv' download='arquivoResponsaveis.csv'>arquivoResponsaveis.csv</a>";
+    fclose($fp1);
+    fclose($fp2);
 
 } catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();
@@ -74,7 +117,7 @@ try {
             }
 
             button {
-                background-color: red;
+                background-color: #2e66b1;
                 color: white;
                 font-size: 1.2rem;
                 padding: 8px 30px;
@@ -86,12 +129,12 @@ try {
             }
 
             button:hover {
-                background-color: #b30012;
+                background-color: #05316b;
                 transform: scale(1.05); 
             }
 
             button:active {
-                background-color: #b30012;
+                background-color: #05316b;
             }
 
             @media (max-width: 768px) {
@@ -107,13 +150,13 @@ try {
 
             a
             {
-                color: red;
+                color: #2e66b1;
                 text-decoration: none;
             }
 
             a:hover
             {
-                color: #b30012;
+                color: #05316b;
             }
 
     </style>

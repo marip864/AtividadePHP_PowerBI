@@ -49,7 +49,7 @@
             }
 
             input[type="submit"] {
-                background-color: red;
+                background-color: #2e66b1;
                 color: white;
                 border: none;
                 padding: 15px;
@@ -179,6 +179,7 @@
                             $stmt->bindParam(':idProjeto', $projeto);
                             $stmt->bindParam(':nomeResponsavel', $responsavel);
                             $stmt->execute();
+
                             $stmt = $pdo->prepare('SELECT * FROM ResponsavelAtividade WHERE nomeResponsavel = :responsavel');
                             $stmt->bindParam(':responsavel', $responsavel);
                             $stmt->execute();
@@ -189,6 +190,7 @@
                                 $stmt->bindParam(':nomeResponsavel', $responsavel);
                                 $stmt->execute();
                             }
+                            
                             echo "<script>swal('Sucesso!', 'Atividade cadastrada com sucesso!', 'success');</script>";
                             } else {
                                 echo "<script>swal('Atenção!', 'A atividade já foi cadastrada!', 'warning');</script>";
