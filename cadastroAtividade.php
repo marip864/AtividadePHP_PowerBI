@@ -101,18 +101,18 @@
         <div class="container">
             <h2>Cadastro de Atividades - Projetos TCC</h2>
             <form method="post" id="checkbox-container">
-                Nome da Atividade: <input type="text" name="nome" required>
+                Nome da Atividade: <input type="text" name="nome">
                 <br>
-                Data Inicial: <input type="date" name="dataInicial" required>
+                Data Inicial: <input type="date" name="dataInicial">
                 <br>
-                Data Final: <input type="date" name="dataFinal" required>
+                Data Final: <input type="date" name="dataFinal">
                 <br>
-                Orçamento: <input type="text" name="orcamento" required>
+                Orçamento: <input type="text" name="orcamento">
                 <br>
-                Valor gasto: <input type="text" name="valorGasto" required>
+                Valor gasto: <input type="text" name="valorGasto">
                 <br>
                 Status: 
-                <select name="status" required>
+                <select name="status">
                     <option value=""></option>
                     <option value="Não iniciada">Não iniciado</option>
                     <option value="Em andamento">Em andamento</option>
@@ -126,7 +126,7 @@
                     $stmt = $pdo->prepare("SELECT nomeProjeto FROM Projeto");
                     $stmt->execute(); 
 
-                    echo '<select name="projeto" id="projeto" required>';
+                    echo '<select name="projeto" id="projeto">';
                     echo '<option value=""></option>';
 
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -141,7 +141,7 @@
                 }
                 ?>
                 <br>
-                Responsável: <input type="text" name="responsavel" required>
+                Responsável: <input type="text" name="responsavel">
                 <br>
                 <input type="submit" value="Cadastrar">
             </form>
@@ -156,7 +156,7 @@
                 $status = $_POST['status'];
                 $projeto = $_POST['projeto'];
                 $responsavel = $_POST['responsavel'];
-                setlocale(LC_TIME, 'pt_BR.utf8', 'pt_BR', 'portuguese');
+                setlocale(LC_TIME, 'pt_BR.UTF-8','pt_BR.utf8', 'pt_BR', 'portuguese');
                 $dataInicialFormatada = strftime("%A, %d de %B de %Y", strtotime($dataInicial));
                 $dataFinalFormatada = strftime("%A, %d de %B de %Y", strtotime($dataFinal));
                 if(trim($nome) != "" && trim($dataInicial) != "" && trim($dataFinal) != "" && trim($orcamento) != "" && trim($valorGasto) != "" && trim($status) != "" && trim($projeto) != "" && trim($responsavel) != "") {
@@ -190,7 +190,7 @@
                                 $stmt->bindParam(':nomeResponsavel', $responsavel);
                                 $stmt->execute();
                             }
-                            
+
                             echo "<script>swal('Sucesso!', 'Atividade cadastrada com sucesso!', 'success');</script>";
                             } else {
                                 echo "<script>swal('Atenção!', 'A atividade já foi cadastrada!', 'warning');</script>";
